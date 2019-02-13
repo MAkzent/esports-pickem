@@ -1,7 +1,8 @@
 @import '../../variables.scss';
 
 .region-btn {
-  @extend %btn-primary;
+  @extend %btn-secondary;
+  font-weight: 600;
   font-size: .8rem;
   text-align: center;
   min-width: 8rem;
@@ -16,7 +17,6 @@
   }
 
   &--selected {
-    font-weight: 800;
     border-color: $terracotta;
     background-color: $terracotta;
     

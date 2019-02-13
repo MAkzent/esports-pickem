@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import RegionBtn from '../../components/RegionBtn';
 import Player from '../../components/Player';
-import { REGIONS, playersMock } from '../../utils/playersMock';
 import './voting.scss';
 
 export default class PlayerVoting extends Component {
@@ -24,18 +23,20 @@ export default class PlayerVoting extends Component {
 
   filterAndRenderPlayers() {
     const { selectedRegion } = this.state;
+    const { players } = this.props;
 
-    const selectedPlayers = playersMock.filter(player => {
+    const selectedPlayers = players.filter(player => {
       return player.region === selectedRegion
     })
 
-    return selectedPlayers.map(player => <Player player={player}/>);
+    return selectedPlayers.map(player => <Player key={player.participantId} player={player}/>);
   }
 
   renderRegionButtons() {
     const { selectedRegion } = this.state;
+    const { regions } = this.props;
 
-    return REGIONS.map(region => 
+    return regions.map(region => 
       <RegionBtn 
         key={region}
         onClick={() => this.selectRegion(region)} 
@@ -46,15 +47,18 @@ export default class PlayerVoting extends Component {
   }
 
   render() {
+    const { selectedRegion } = this.state; 
+    const { headline, description, emptyTitle } = this.props;
+
     return (
       <div className="voting"> 
-        <div className="voting__headline">Vote for players to represent your region's team</div>
-        <div className="voting__title">Select your region to browse players.</div>
+        <div className="voting__headline">{headline}</div>
+        <div className="voting__description">{description}</div>
         <div className={"voting__region-btn-wrapper"}>
           {this.renderRegionButtons()}
         </div>
         <div className={"voting__players-wrapper"}>
-          {this.filterAndRenderPlayers()}
+          {selectedRegion ? this.filterAndRenderPlayers() : <div className="voting__title">{emptyTitle}</div>}
         </div>
       </div>
     )
