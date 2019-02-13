@@ -1,0 +1,25 @@
+@import './variables.scss';
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700');
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: $background-color;
+  color: $font-color;
+  font-family: system-ui, 'Roboto', sans-serif;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+#root {
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.App {
+  padding: 2rem;
+}
+

@@ -1,0 +1,81 @@
+// colors
+$white: #fff;
+$black: #000;
+$dark1: #212121;
+
+$outerspace: #2d3436;
+$goldenrod: #fdcb6e;
+$terracotta: #E17055;
+
+$font-color: $white;
+$background-color: $dark1;
+
+// templates
+%h1 {
+  font-size: 1.25rem;
+  line-height: 1.25rem * 1.4;
+}
+
+%h2 {
+  font-size: 1.15rem;
+  line-height: 1.15rem * 1.4;
+}
+
+%h3 {
+  font-size: 1rem;
+  line-height: 1rem * 1.4;
+}
+
+%h4 {
+  font-size: 0.875rem;
+  line-height: 0.875rem * 1.4;
+}
+
+%h5 {
+  font-size: 0.75rem;
+  line-height: 0.75rem * 1.4;
+}
+
+%col-nowrap {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+%row-nowrap {
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+%btn-primary {
+  border: 1px solid $goldenrod;
+  padding: 0.6875rem 1rem;
+  font-size: 0.875rem;
+  outline: none;
+  background-color: $goldenrod;
+  color: $black;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-weight: 500;
+  transition: 200ms ease-in-out;
+  user-select: none;
+
+  &:focus {
+    border-color: lighten($goldenrod, 5);
+    background-color: lighten($goldenrod, 5);
+  }
+
+  &:hover {
+    border-color: lighten($goldenrod, 5);
+    background-color: lighten($goldenrod, 5);
+  }
+
+  &:active {
+    border-color: darken($goldenrod, 5);
+    background-color: darken($goldenrod, 5);
+  }
+
+  &:disabled {
+    opacity: 0.25;
+    cursor: default;
+  }
+}
