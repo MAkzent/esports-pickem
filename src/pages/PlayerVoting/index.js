@@ -28,26 +28,30 @@ export default class PlayerVoting extends Component {
     const selectedPlayers = playersMock.filter(player => {
       return player.region === selectedRegion
     })
-    .map(player => <Player player={player}/>)
 
-    return selectedPlayers;
+    return selectedPlayers.map(player => <Player player={player}/>);
+  }
+
+  renderRegionButtons() {
+    const { selectedRegion } = this.state;
+
+    return REGIONS.map(region => 
+      <RegionBtn 
+        key={region}
+        onClick={() => this.selectRegion(region)} 
+        region={region}
+        selected={selectedRegion === region}
+      />
+    )
   }
 
   render() {
-    const { selectedRegion } = this.state;
     return (
       <div className="voting"> 
         <div className="voting__headline">Vote for players to represent your region's team</div>
         <div className="voting__title">Select your region to browse players.</div>
         <div className={"voting__region-btn-wrapper"}>
-          {REGIONS.map(region => 
-            <RegionBtn 
-              key={region}
-              onClick={() => this.selectRegion(region)} 
-              region={region}
-              selected={selectedRegion === region}
-            />
-          )}
+          {this.renderRegionButtons()}
         </div>
         <div className={"voting__players-wrapper"}>
           {this.filterAndRenderPlayers()}
