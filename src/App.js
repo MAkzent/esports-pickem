@@ -8,7 +8,8 @@ class App extends Component {
     return (
       <div className="App">
         <PlayerVoting 
-          headline="Vote for players to represent your region's team"
+          headlineOpen="Vote for players to represent your region's team"
+          headlineClosed="Results of voting for each region"
           description="The top 3 vote earners in each region make up that region's team."
           emptyTitle="Select your region to browse players."
           players={playersMock}

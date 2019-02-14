@@ -10,9 +10,15 @@ import VotingWarning from '../../components/VotingWarning';
 export default class PlayerVoting extends Component {
 
   static propTypes = {
+    headline: PropTypes.string.isRequired,
+    headlineClosed: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    emptyTitle: PropTypes.string.isRequired,
+    votationClosed: PropTypes.bool.isRequired,
     isAdmin: PropTypes.bool.isRequired
   }
   static defaultProps = {
+    votationClosed: false,
     isAdmin: false,
   }
 
@@ -118,13 +124,16 @@ export default class PlayerVoting extends Component {
 
   render() {
     const { selectedRegion, showSwitchModal, showMaxVoteModal } = this.state; 
-    const { headline, description, emptyTitle } = this.props;
+    const { headline, description, emptyTitle, isAdmin, votationClosed, headlineClosed } = this.props;
 
     return (
       <div className="voting"> 
         {showSwitchModal ? this.renderSwitchWarningModal() : null}
         {showMaxVoteModal ? this.renderMaxVoteModal() : null}
-        <div className="voting__headline">{headline}</div>
+        {isAdmin ? <div className="voting__close-voting-btn">Close Voting</div> : null}
+        <div className="voting__headline">
+          {votationClosed ? headlineClosed : headline}
+        </div>
         <div className="voting__description">{description}</div>
         <div className={"voting__region-btn-wrapper"}>
           {this.renderRegionButtons()}
