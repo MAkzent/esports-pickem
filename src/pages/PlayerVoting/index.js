@@ -134,7 +134,7 @@ export default class PlayerVoting extends Component {
       <React.Fragment>
         {
           isAdmin ? 
-          <button className="voting__close-voting-btn" onClick={() => this.setState({ votationClosed: true, selectedPlayers: [] }) }>
+          <button className="voting__close-voting-btn" disabled={votationClosed} onClick={() => this.setState({ votationClosed: true, selectedPlayers: [] }) }>
             {votationClosed ? "Voting Closed" : "Close Voting"}
           </button> 
           : null
