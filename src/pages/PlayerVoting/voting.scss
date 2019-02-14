@@ -24,13 +24,20 @@
   }
 
   &__region-btn-wrapper {
-    @extend %row-nowrap;
     margin: 2rem;
+    @include md {
+      display: flex;
+      flex-direction: row;
+    }
   }
 
   &__players-wrapper {
-    @extend %row-nowrap;
     margin: 2rem;
+    @include md {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
   }
 
 }

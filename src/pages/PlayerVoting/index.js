@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import RegionBtn from '../../components/RegionBtn';
 import Player from '../../components/Player';
+import { increasePlayerLikes, decreasePlayerLikes } from '../../utils/playersMock';
 import './voting.scss';
 
 export default class PlayerVoting extends Component {
@@ -15,21 +16,50 @@ export default class PlayerVoting extends Component {
 
   state = {
     selectedRegion: null,
+    selectedPlayers: [],
   }
 
   selectRegion(region) {
-    this.setState({selectedRegion: region})
+    this.setState({ selectedRegion: region })
   }
 
   filterAndRenderPlayers() {
-    const { selectedRegion } = this.state;
-    const { players } = this.props;
+    const { selectedRegion, selectedPlayers } = this.state;
+    const { players, votationClosed } = this.props;
 
-    const selectedPlayers = players.filter(player => {
+    const filteredPlayers = players.filter(player => {
       return player.region === selectedRegion
     })
 
-    return selectedPlayers.map(player => <Player key={player.participantId} player={player}/>);
+    const totalVotesInRegion = filteredPlayers.reduce((totalVotes, player) => totalVotes + Number(player.likes), 0)
+
+    return filteredPlayers.map(player => <Player 
+        onClick={() => this.selectPlayer(player)}
+        votationClosed={votationClosed} 
+        totalVotesInRegion={totalVotesInRegion} 
+        key={player.participantId} 
+        player={player} 
+        selected={selectedPlayers.includes(player)}
+      />);
+  }
+
+  async selectPlayer(player) {
+    const { selectedPlayers } = this.state;
+    const copyOfSelectedPlayers = [...selectedPlayers] || [];
+    if (copyOfSelectedPlayers.includes(player)) {
+      const index = copyOfSelectedPlayers.indexOf(player);
+      copyOfSelectedPlayers.splice(index, 1);
+      await decreasePlayerLikes(player);
+      return this.setState({ selectedPlayers: copyOfSelectedPlayers });
+    } else {
+      copyOfSelectedPlayers.push(player);
+      await increasePlayerLikes(player);
+      return this.setState({ selectedPlayers: copyOfSelectedPlayers });
+    }
+  }
+
+  increaseVoteCount(player) {
+
   }
 
   renderRegionButtons() {

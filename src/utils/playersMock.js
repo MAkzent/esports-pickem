@@ -6,6 +6,24 @@ const JP = REGIONS[1];
 const TW = REGIONS[2];
 const HK = REGIONS[3];
 
+// mocked some API calls here to manipulate the data
+
+export const increasePlayerLikes = (targetPlayer) => {
+    playersMock.forEach(player => {
+        if (player.participantId && player.participantId === targetPlayer.participantId) {
+            return player.likes++;
+        }
+    })
+}
+
+export const decreasePlayerLikes = (targetPlayer) => {
+    playersMock.forEach(player => {
+        if (player.participantId && player.participantId === targetPlayer.participantId) {
+            return player.likes--;
+        }
+    })
+}
+
 export const playersMock = [
   {
       teams: 'zh',
@@ -23,7 +41,7 @@ export const playersMock = [
       avatarUrl: 'https://cdn.dekki.com/uploads/users/5a7483dbe589dd5d603343b0/avatar/original',
       nickname: 'Narvi',
       message: "I'm the anchor/captain of the Singapore team that is going to BlizzCon for the HGG Playoffs, and I also recently finished 5th in the HCT APAC Fall Playoffs. Definitely one of the best players in SEA, so please vote for me, you know you want me in the team!",
-      country: 'jp',
+      country: 'sg',
       region: SEA,
       likes: 43
   },
@@ -33,7 +51,7 @@ export const playersMock = [
       avatarUrl: 'https://cdn.dekki.com/uploads/users/5a7483dbe589dd5d603343b0/avatar/original',
       nickname: 'Thrain',
       message: "百萬象迷站出來!!!(最好成績大概是2018年二月賽季亞服#1)",
-      country: 'jp',
+      country: 'sg',
       region: SEA,
       likes: 321
   },
@@ -53,7 +71,7 @@ export const playersMock = [
       avatarUrl: 'https://cdn.dekki.com/uploads/users/5a7483dbe589dd5d603343b0/avatar/original',
       nickname: 'Borin',
       message: "勝つために全力で戦います。投票よろしくお願いします。",
-      country: 'zh',
+      country: 'ch',
       region: TW,
       likes: 433
   },
@@ -63,7 +81,7 @@ export const playersMock = [
       avatarUrl: 'https://cdn.dekki.com/uploads/users/5a7483dbe589dd5d603343b0/avatar/original',
       nickname: 'Ori',
       message: "このゲームには必勝法がある。",
-      country: 'jp',
+      country: 'hk',
       region: HK,
       likes: 23
   },
@@ -83,7 +101,7 @@ export const playersMock = [
       avatarUrl: 'https://cdn.dekki.com/uploads/users/5a7483dbe589dd5d603343b0/avatar/original',
       nickname: 'Bifur',
       message: "選手権プレイオフに2度出場し、ベスト8に残った実績があります。プリーストの勝利数が累計8000を超えていて扱いには自信があります。ぜひ投票お願いします",
-      country: 'jp',
+      country: 'ch',
       region: HK,
       likes: 43
   },
@@ -93,7 +111,7 @@ export const playersMock = [
       avatarUrl: 'https://cdn.dekki.com/uploads/users/5a7483dbe589dd5d603343b0/avatar/original',
       nickname: 'Girith',
       message: "今のところ日本で1番HCTポイントを持っていて、HSに対するモチベーションが高いです :)",
-      country: 'jp',
+      country: 'hk',
       region: HK,
       likes: 12
   },
@@ -113,7 +131,7 @@ export const playersMock = [
       avatarUrl: 'https://cdn.dekki.com/uploads/users/5a7483dbe589dd5d603343b0/avatar/original',
       nickname: 'Hadlath',
       message: "To achieve my dream of being a better player! To inspire other players to achieve their dreams! Trying is the first step!",
-      country: 'jp',
+      country: 'tw',
       region: TW,
       likes: 322
   },
@@ -123,7 +141,7 @@ export const playersMock = [
       avatarUrl: 'https://cdn.dekki.com/uploads/users/5a7483dbe589dd5d603343b0/avatar/original',
       nickname: 'Duimben',
       message: "I cast hard and I tryhard while balancing a working life. Your Average Joe with above average goals",
-      country: 'jp',
+      country: 'th',
       region: SEA,
       likes: null
   },
@@ -153,7 +171,7 @@ export const playersMock = [
       avatarUrl: 'https://cdn.dekki.com/uploads/users/5a7483dbe589dd5d603343b0/avatar/original',
       nickname: 'Gerontius',
       message: "2nd Tavern Hero Qualifier Indonesia. My deck : Tempo Mage, Secret Hunter, Big Spell Mage, Even Warlock.",
-      country: 'jp',
+      country: 'tw',
       region: TW,
       likes: 5
   },
@@ -163,7 +181,7 @@ export const playersMock = [
       avatarUrl: 'https://cdn.dekki.com/uploads/users/5a7483dbe589dd5d603343b0/avatar/original',
       nickname: 'Fallohide',
       message: "The best/luckiest hearthstone player in SEA",
-      country: 'jp',
+      country: 'hk',
       region: HK,
       likes: 4
   },

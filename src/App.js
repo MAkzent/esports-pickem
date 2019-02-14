@@ -13,6 +13,7 @@ class App extends Component {
           emptyTitle="Select your region to browse players."
           players={playersMock}
           regions={REGIONS}
+          votationClosed={false}
         />
       </div>
     );
