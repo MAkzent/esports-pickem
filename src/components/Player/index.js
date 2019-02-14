@@ -46,7 +46,9 @@ const Player = ({ player, selected, onClick, totalVotesInRegion, votationClosed 
         <div className="player__header-wrapper">
           <PlayerImage avatarUrl={player.avatarUrl}/>
           <div>
-            <div className="player__nick-name">
+          <div className={cn("player__nick-name", {
+            "player__nick-name--selected": selected,
+          })}>
               {player.nickname}
             </div>
             <div className="player__flag">
