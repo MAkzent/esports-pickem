@@ -110,6 +110,7 @@ export default class PlayerVoting extends Component {
           title="No more votes 😭"
           text="You may only vote for up to three players. We know it's hard, but you need to decide who you support the most."
           onAccept={() => this.setState({ showMaxVoteModal: false})}
+          alternativeAcceptText="Understood"
         /> 
       </Modal>
     )

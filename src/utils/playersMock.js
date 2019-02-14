@@ -151,7 +151,7 @@ export const playersMock = [
       avatarUrl: 'https://cdn.dekki.com/uploads/users/5a7483dbe589dd5d603343b0/avatar/original',
       nickname: 'Hador',
       message: "Suuuuuper washed up Hearthstone player from the Philippines. I hate losing more than I like winning. Please vote so I can make SEA great again. :D",
-      country: 'jp',
+      country: 'ph',
       region: JP,
       likes: 111
   },

@@ -32,6 +32,8 @@ const Player = ({ player, selected, onClick, totalVotesInRegion, votationClosed 
         return "🇨🇳";
       case 'tw':
         return "🇹🇼";
+      case 'ph':
+        return "🇵🇭";
       default: 
         return "🌏";
     }
