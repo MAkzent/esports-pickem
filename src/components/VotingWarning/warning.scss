@@ -2,7 +2,10 @@
 
 .warning {
   &__wrapper {
-    @extend %row-nowrap;
+    @extend %col-nowrap;
+    @include md {
+      flex-direction: row;
+    }
     justify-content: center;
     align-items: center;
   }
@@ -15,12 +18,12 @@
   &__text {
     @extend %h5;
     line-height: 1.15rem;
+    padding: .5rem 0;
   }
   
   &__title {
     @extend %h3;
     font-weight: 600;
-    padding-bottom: .5rem;
   }
 
   &__buttons-wrapper {

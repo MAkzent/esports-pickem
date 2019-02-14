@@ -12,13 +12,17 @@
   }
 
   &__wrapper {
+    box-sizing: border-box;
     margin: 0 auto;
-    width: 500px;
+    width: 100vw;
+    @include md {
+      width: 600px;
+    }
     height: auto;
     background-color: $outerspace;
     border-bottom-left-radius: .5rem;
     border-bottom-right-radius: .5rem;
-    padding: 1.5rem;
+    padding: 1.5rem 2rem;
     box-shadow: 0 2px 8px 4px rgba(black, 0.15);
   }
 }
