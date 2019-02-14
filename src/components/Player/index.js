@@ -40,10 +40,11 @@ const Player = ({ player, selected, onClick, totalVotesInRegion, votationClosed 
   }
 
   return (
-    <div className="player__wrapper" onClick={() => onClick()}>
+    <div className="player__wrapper" onClick={() => !votationClosed && onClick()}>
      <div className="player__vote-count">{votationClosed ? renderPercentageVoted() : renderVotes()}</div>
       <div className={cn("player", {
         "player--selected": selected,
+        "player--disabled ": votationClosed,
       })}>
         <div className="player__header-wrapper">
           <PlayerImage avatarUrl={player.avatarUrl}/>

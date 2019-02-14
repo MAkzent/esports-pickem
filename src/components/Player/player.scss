@@ -14,13 +14,20 @@
   &:hover {
     cursor: pointer;
     background-color: rgba($outerspace, .8);
-
   }
 
+  
   &--selected {
     border-color: rgba($terracotta, 1);
     &:hover {
       cursor: pointer;
+    }
+  }
+  
+  &--disabled {
+    &:hover {
+      cursor: default;
+      background-color: rgba($outerspace, 1);
     }
   }
 

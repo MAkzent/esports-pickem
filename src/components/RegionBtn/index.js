@@ -4,16 +4,18 @@ import cn from 'classnames';
 
 import './region-btn.scss';
 
-const RegionBtn = ( {region, onClick, selected} ) => {
+const RegionBtn = ( {region, onClick, selected, isAuthenticated} ) => {
+
   return (
-    <div 
+    <button 
       className={cn("region-btn", {
         "region-btn--selected": selected,
       })}
       onClick={onClick}
+      disabled={!isAuthenticated}
     >
       {region}
-    </div>
+    </button>
   )
 }
 

@@ -1,0 +1,25 @@
+@import '../../variables.scss';
+
+.request {
+  margin-top: 2rem;
+
+  &__headline {
+    @extend %h3;
+    font-weight: 500;
+    opacity: .8;
+    text-align: center;
+    margin: 1rem 0;
+  }
+
+  &__btn-wrapper {
+    @extend %row-nowrap;
+    padding: 1rem;
+  }
+
+  &__login-btn {
+    @extend %btn-primary;
+    width: 7rem;
+    text-align: center;
+    margin: 0 1rem;
+  }
+}

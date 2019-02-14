@@ -10,10 +10,10 @@ const VotingWarning = ({onCancel, onAccept, title, text, alternativeAcceptText})
         <div className="warning__text">{text}</div>
       </div>
       <div className="warning__buttons-wrapper">
-        {onCancel ? <div className="warning__cancel-btn" onClick={() => onCancel()}>Cancel</div> : null}
-        <div className="warning__accept-btn" onClick={() => onAccept()}>
+        {onCancel ? <button className="warning__cancel-btn" onClick={() => onCancel()}>Cancel</button> : null}
+        <button className="warning__accept-btn" onClick={() => onAccept()}>
           {alternativeAcceptText ? alternativeAcceptText : "Accept"}
-        </div>
+        </button>
       </div>
     </div>
   )

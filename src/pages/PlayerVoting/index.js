@@ -6,6 +6,7 @@ import Modal from '../../components/Modal';
 import { increasePlayerLikes, decreasePlayerLikes } from '../../utils/playersMock';
 import './voting.scss';
 import VotingWarning from '../../components/VotingWarning';
+import LoginRequest from '../../components/LoginRequest';
 
 export default class PlayerVoting extends Component {
 
@@ -15,14 +16,18 @@ export default class PlayerVoting extends Component {
     description: PropTypes.string.isRequired,
     emptyTitle: PropTypes.string.isRequired,
     votationClosed: PropTypes.bool.isRequired,
-    isAdmin: PropTypes.bool.isRequired
+    closeVotation: PropTypes.func.isRequired,
+    isAdmin: PropTypes.bool.isRequired,
+    isAuthenticated: PropTypes.bool.isRequired
   }
   static defaultProps = {
     votationClosed: false,
     isAdmin: false,
+    isAuthenticated: false,
   }
 
   state = {
+    votationClosed: false,
     selectedRegion: null,
     regionToBeSelected: null,
     selectedPlayers: [],
@@ -42,8 +47,8 @@ export default class PlayerVoting extends Component {
   }
 
   filterAndRenderPlayers() {
-    const { selectedRegion, selectedPlayers } = this.state;
-    const { players, votationClosed } = this.props;
+    const { selectedRegion, selectedPlayers, votationClosed } = this.state;
+    const { players } = this.props;
 
     const filteredPlayers = players.filter(player => {
       return player.region === selectedRegion
@@ -84,7 +89,7 @@ export default class PlayerVoting extends Component {
 
   renderRegionButtons() {
     const { selectedRegion } = this.state;
-    const { regions } = this.props;
+    const { regions, isAuthenticated } = this.props;
 
     return regions.map(region => 
       <RegionBtn 
@@ -92,6 +97,7 @@ export default class PlayerVoting extends Component {
         onClick={() => this.selectRegion(region)} 
         region={region}
         selected={selectedRegion === region}
+        isAuthenticated={isAuthenticated}
       />
     )
   }
@@ -101,7 +107,7 @@ export default class PlayerVoting extends Component {
       <Modal> 
         <VotingWarning 
           title="You can only vote for one region."
-          text="Switching regions will reset your current votes. Do you wish to proceed and vote in another region?"
+          text={`Switching regions will reset your current votes. Do you wish to proceed and vote in ${this.state.regionToBeSelected}?`}
           onAccept={() => this.confirmSelectRegion()}
           onCancel={() => this.setState({ showSwitchModal: false})}
         /> 
@@ -122,25 +128,44 @@ export default class PlayerVoting extends Component {
     )
   }
 
+  shouldRenderAdminButton() {
+    const { votationClosed } = this.state;
+    const { isAdmin } = this.props;
+
+    return (
+      <React.Fragment>
+        {
+          isAdmin ? 
+          <button className="voting__close-voting-btn" onClick={() => this.setState({ votationClosed: true, selectedPlayers: [] }) }>
+            {votationClosed ? "Voting Closed" : "Close Voting"}
+          </button> 
+          : null
+        }
+      </React.Fragment>
+    )
+  }
+
   render() {
-    const { selectedRegion, showSwitchModal, showMaxVoteModal } = this.state; 
-    const { headline, description, emptyTitle, isAdmin, votationClosed, headlineClosed } = this.props;
+    const { selectedRegion, showSwitchModal, showMaxVoteModal, votationClosed } = this.state; 
+    const { headline, description, emptyTitle, headlineClosed, isAuthenticated, onAdminLogin, onLogin } = this.props;
 
     return (
       <div className="voting"> 
         {showSwitchModal ? this.renderSwitchWarningModal() : null}
         {showMaxVoteModal ? this.renderMaxVoteModal() : null}
-        {isAdmin ? <div className="voting__close-voting-btn">Close Voting</div> : null}
+        {this.shouldRenderAdminButton()}
         <div className="voting__headline">
           {votationClosed ? headlineClosed : headline}
         </div>
         <div className="voting__description">{description}</div>
         <div className={"voting__region-btn-wrapper"}>
-          {this.renderRegionButtons()}
+          {this.renderRegionButtons(isAuthenticated)}
         </div>
-        <div className={"voting__players-wrapper"}>
-          {selectedRegion ? this.filterAndRenderPlayers() : <div className="voting__title">{emptyTitle}</div>}
-        </div>
+        {!isAuthenticated ? <LoginRequest onAdminLogin={onAdminLogin} onLogin={onLogin}/> : 
+          <div className={"voting__players-wrapper"}>
+            {selectedRegion ? this.filterAndRenderPlayers() : <div className="voting__title">{emptyTitle}</div>}
+          </div>
+        }
       </div>
     )
   }
