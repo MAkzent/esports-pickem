@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import RegionBtn from '../../components/RegionBtn';
 import Player from '../../components/Player';
+import Modal from '../../components/Modal';
 import { increasePlayerLikes, decreasePlayerLikes } from '../../utils/playersMock';
 import './voting.scss';
+import SwitchWarning from '../../components/SwitchWarning';
 
 export default class PlayerVoting extends Component {
 
@@ -11,12 +13,13 @@ export default class PlayerVoting extends Component {
     isAdmin: PropTypes.bool.isRequired
   }
   static defaultProps = {
-    isAdmin: false
+    isAdmin: false,
   }
 
   state = {
     selectedRegion: null,
     selectedPlayers: [],
+    showModal: true,
   }
 
   selectRegion(region) {
@@ -58,10 +61,6 @@ export default class PlayerVoting extends Component {
     }
   }
 
-  increaseVoteCount(player) {
-
-  }
-
   renderRegionButtons() {
     const { selectedRegion } = this.state;
     const { regions } = this.props;
@@ -76,12 +75,24 @@ export default class PlayerVoting extends Component {
     )
   }
 
+  renderSwitchWarningModal() {
+    return (
+      <Modal> 
+        <SwitchWarning 
+          onAccept={() => console.log('hello world')}
+          onCancel={() => this.setState({ showModal: false})}
+        /> 
+      </Modal>
+    )
+  }
+
   render() {
-    const { selectedRegion } = this.state; 
+    const { selectedRegion, showModal } = this.state; 
     const { headline, description, emptyTitle } = this.props;
 
     return (
       <div className="voting"> 
+        {showModal ? this.renderSwitchWarningModal() : null}
         <div className="voting__headline">{headline}</div>
         <div className="voting__description">{description}</div>
         <div className={"voting__region-btn-wrapper"}>

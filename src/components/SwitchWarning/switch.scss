@@ -1,0 +1,38 @@
+@import '../../variables.scss';
+
+.switch {
+  &__wrapper {
+    @extend %row-nowrap;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__text {
+    @extend %col-nowrap;
+    @extend %h5;
+    line-height: 1.15rem;
+    flex: 1 1 auto;
+
+    &--title {
+      @extend %h3;
+      font-weight: 600;
+      padding-bottom: .5rem;
+    }
+  }
+
+  &__buttons-wrapper {
+    @extend %row-nowrap;
+    flex: 1 1 auto;
+    margin-left: .5rem;
+  }
+
+  &__accept-btn {
+    @extend %btn-primary;
+    margin: .5rem;
+  }
+
+  &__cancel-btn {
+    @extend %btn-secondary;
+    margin: .5rem;
+  }
+}
