@@ -22,7 +22,7 @@ const VotingWarning = ({onCancel, onAccept, title, text, alternativeAcceptText})
 VotingWarning.propTypes = {
   title: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
-  onClick: PropTypes.func.isRequired,
+  onAccept: PropTypes.func.isRequired,
   onCancel: PropTypes.func,
   alternativeAcceptText: PropTypes.string,
 }

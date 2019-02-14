@@ -24,6 +24,7 @@
   }
 
   &__region-btn-wrapper {
+    @extend %col-nowrap;
     margin: 2rem;
     @include md {
       display: flex;

@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { increasePlayerLikes, decreasePlayerLikes } from '../../utils/playersMock';
 import RegionBtn from '../../components/RegionBtn';
 import Player from '../../components/Player';
 import Modal from '../../components/Modal';
-import { increasePlayerLikes, decreasePlayerLikes } from '../../utils/playersMock';
-import './voting.scss';
 import VotingWarning from '../../components/VotingWarning';
 import LoginRequest from '../../components/LoginRequest';
+import './voting.scss';
 
 export default class PlayerVoting extends Component {
 
@@ -15,13 +15,11 @@ export default class PlayerVoting extends Component {
     headlineClosed: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     emptyTitle: PropTypes.string.isRequired,
-    votationClosed: PropTypes.bool.isRequired,
-    closeVotation: PropTypes.func.isRequired,
     isAdmin: PropTypes.bool.isRequired,
     isAuthenticated: PropTypes.bool.isRequired
   }
+
   static defaultProps = {
-    votationClosed: false,
     isAdmin: false,
     isAuthenticated: false,
   }
@@ -42,7 +40,7 @@ export default class PlayerVoting extends Component {
     this.setState({ selectedRegion: region, selectedPlayers: [] })
   }
 
-  confirmSelectRegion() {
+  confirmSelectedRegion() {
     this.setState({ showSwitchModal: false, selectedRegion: this.state.regionToBeSelected, regionToBeSelected: null, selectedPlayers: [] })
   }
 
@@ -56,20 +54,20 @@ export default class PlayerVoting extends Component {
 
     const totalVotesInRegion = filteredPlayers.reduce((totalVotes, player) => totalVotes + Number(player.likes), 0)
 
-    return filteredPlayers.map(player => <Player 
+    return filteredPlayers.map(player => 
+      <Player 
         onClick={() => this.selectPlayer(player)}
         votationClosed={votationClosed} 
         totalVotesInRegion={totalVotesInRegion} 
         key={player.participantId} 
         player={player} 
         selected={selectedPlayers.includes(player)}
-      />);
+      />
+    );
   }
 
   async selectPlayer(player) {
     const { selectedPlayers } = this.state;
-
-    
     const copyOfSelectedPlayers = [...selectedPlayers] || [];
     
     if (copyOfSelectedPlayers.includes(player)) {
@@ -108,7 +106,7 @@ export default class PlayerVoting extends Component {
         <VotingWarning 
           title="You can only vote for one region."
           text={`Switching regions will reset your current votes. Do you wish to proceed and vote in ${this.state.regionToBeSelected}?`}
-          onAccept={() => this.confirmSelectRegion()}
+          onAccept={() => this.confirmSelectedRegion()}
           onCancel={() => this.setState({ showSwitchModal: false})}
         /> 
       </Modal>
