@@ -10,12 +10,18 @@ Disclaimer: This project was bootstrapped with [Create React App](https://github
 ## Features:
 
 * Select a region to vote for your favorites players in that region
-* You can choose up to 3 players for just one region
-* You cannot select players in several regions
-* A warning modal will be triggered before you change regions and lose your picks
-* Users can only vote while the voting is open
-* Admins can close the votation and can also vote before closing
-* The state of the app is not persistent yet, this could be solved by using LocalStorage or a real database
+* You can select up to 3 players in your chosen region
+* You cannot select players in several regions, only one region
+* You'll see a warning modal before you'd lose any picks - so don't worry
+* Users can vote while votation is open
+* Admins can vote while votation is open
+* Admins can close the votation
+* Closing the votation will show the players' percentage votes for that region
+
+## Future improvements
+
+* Add state persistence through LocalStorage or a DB
+* Add Redux to for better state management between components
 
 ## Testing the app
 
