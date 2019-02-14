@@ -1,23 +1,26 @@
 @import '../../variables.scss';
 
-.switch {
+.warning {
   &__wrapper {
     @extend %row-nowrap;
     justify-content: center;
     align-items: center;
   }
 
-  &__text {
+  &__description-wrapper {
     @extend %col-nowrap;
+    flex: 1 1 auto;
+  }
+
+  &__text {
     @extend %h5;
     line-height: 1.15rem;
-    flex: 1 1 auto;
-
-    &--title {
-      @extend %h3;
-      font-weight: 600;
-      padding-bottom: .5rem;
-    }
+  }
+  
+  &__title {
+    @extend %h3;
+    font-weight: 600;
+    padding-bottom: .5rem;
   }
 
   &__buttons-wrapper {

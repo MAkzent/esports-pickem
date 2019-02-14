@@ -5,7 +5,7 @@ import Player from '../../components/Player';
 import Modal from '../../components/Modal';
 import { increasePlayerLikes, decreasePlayerLikes } from '../../utils/playersMock';
 import './voting.scss';
-import SwitchWarning from '../../components/SwitchWarning';
+import VotingWarning from '../../components/VotingWarning';
 
 export default class PlayerVoting extends Component {
 
@@ -18,12 +18,21 @@ export default class PlayerVoting extends Component {
 
   state = {
     selectedRegion: null,
+    regionToBeSelected: null,
     selectedPlayers: [],
-    showModal: true,
+    showSwitchModal: false,
+    showMaxVoteModal: false,
   }
 
   selectRegion(region) {
-    this.setState({ selectedRegion: region })
+    if (!!this.state.selectedPlayers.length) {
+      return this.setState({ showSwitchModal: true, regionToBeSelected: region })
+    }
+    this.setState({ selectedRegion: region, selectedPlayers: [] })
+  }
+
+  confirmSelectRegion() {
+    this.setState({ showSwitchModal: false, selectedRegion: this.state.regionToBeSelected, regionToBeSelected: null, selectedPlayers: [] })
   }
 
   filterAndRenderPlayers() {
@@ -48,13 +57,19 @@ export default class PlayerVoting extends Component {
 
   async selectPlayer(player) {
     const { selectedPlayers } = this.state;
+
+    
     const copyOfSelectedPlayers = [...selectedPlayers] || [];
+    
     if (copyOfSelectedPlayers.includes(player)) {
       const index = copyOfSelectedPlayers.indexOf(player);
       copyOfSelectedPlayers.splice(index, 1);
       await decreasePlayerLikes(player);
       return this.setState({ selectedPlayers: copyOfSelectedPlayers });
     } else {
+      if (selectedPlayers.length >= 3) {
+        return this.setState({ showMaxVoteModal: true })
+      }
       copyOfSelectedPlayers.push(player);
       await increasePlayerLikes(player);
       return this.setState({ selectedPlayers: copyOfSelectedPlayers });
@@ -78,21 +93,36 @@ export default class PlayerVoting extends Component {
   renderSwitchWarningModal() {
     return (
       <Modal> 
-        <SwitchWarning 
-          onAccept={() => console.log('hello world')}
-          onCancel={() => this.setState({ showModal: false})}
+        <VotingWarning 
+          title="You can only vote for one region."
+          text="Switching regions will reset your current votes. Do you wish to proceed and vote in another region?"
+          onAccept={() => this.confirmSelectRegion()}
+          onCancel={() => this.setState({ showSwitchModal: false})}
+        /> 
+      </Modal>
+    )
+  }
+
+  renderMaxVoteModal() {
+    return (
+      <Modal> 
+        <VotingWarning 
+          title="No more votes 😭"
+          text="You may only vote for up to three players. We know it's hard, but you need to decide who you support the most."
+          onAccept={() => this.setState({ showMaxVoteModal: false})}
         /> 
       </Modal>
     )
   }
 
   render() {
-    const { selectedRegion, showModal } = this.state; 
+    const { selectedRegion, showSwitchModal, showMaxVoteModal } = this.state; 
     const { headline, description, emptyTitle } = this.props;
 
     return (
       <div className="voting"> 
-        {showModal ? this.renderSwitchWarningModal() : null}
+        {showSwitchModal ? this.renderSwitchWarningModal() : null}
+        {showMaxVoteModal ? this.renderMaxVoteModal() : null}
         <div className="voting__headline">{headline}</div>
         <div className="voting__description">{description}</div>
         <div className={"voting__region-btn-wrapper"}>
